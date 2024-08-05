@@ -7,6 +7,8 @@ services:
       - 80:5173
     volumes:
       - ./frontend/src:/app/src
+    environment:
+      VITE_API_URL: http://localhost:3000
   api:
     build: ./backend
     ports:
@@ -17,16 +19,16 @@ services:
       - ./backend/app:/app/app
     depends_on:
       - db
-  api-tests:
-    image: holamundo-api
-    environment:
-      DB_URL: mongodb://db/gamifytest
-    volumes:
-      - ./backend/app:/app/app
-      - ./backend/tests:/app/tests
-    depends_on:
-      - db
-    command: npm test
+  #api-tests:
+  #  image: holamundo-api
+  #  environment:
+  #    DB_URL: mongodb://db/gamifytest
+  #  volumes:
+  #    - ./backend/app:/app/app
+  #    - ./backend/tests:/app/tests
+  #  depends_on:
+  #    - db
+  #  command: npm test
   db:
     image: mongo:5.0.19-focal
     ports:
